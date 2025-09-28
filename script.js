@@ -33,6 +33,7 @@ grist.onRecords(table => {
 
   mappedTable = grist.mapColumnNames(table);
   console.log(mappedTable);
+  console.log('ok');
 
   document.querySelector("#gantt-header").classList.remove('changed');
   document.querySelector("#updateBtn").style.visibility = 'hidden';
