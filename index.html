@@ -1,183 +1,20 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <link rel="stylesheet" href="https://unpkg.com/frappe-gantt/dist/frappe-gantt.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Gantt interactif pour Grist">
+  <title>Grist Gantt</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/frappe-gantt/dist/frappe-gantt.css">
+  <link rel="stylesheet" href="style.css">
   <script src="https://docs.getgrist.com/grist-plugin-api.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/frappe-gantt/dist/frappe-gantt.umd.js"></script>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/frappe-gantt/dist/frappe-gantt.css">
-  <script src="https://unpkg.com/frappe-gantt/dist/frappe-gantt.min.js"></script>
-  <style>
-    html, body {
-      margin: 0;
-      padding: 0;
-      /*height: 100%; */
-      font-family: tahoma, Arial;
-    }
-
-    #gantt .gantt-container {
-      height:100% !important;
-      font-family: tahoma, arial;
-    }
-
-    #gantt-header {
-      padding: 6px;      
-      background: #fefefe;
-      display: flex;
-      flex-wrap: nowrap;
-      align-items: center;
-    }
-    #gantt-header div {
-      flex: 2;
-    }
-    #gantt-header.changed {
-      background-attachment: fixed;
-      position: relative;
-    }
-    #gantt-header.changed::before {
-      content: "";
-      position: absolute;
-      bottom:0;
-      left:0;
-      margin: auto;
-      width: 100%;
-      height:4px;
-      padding: intial;
-      background: linear-gradient(0deg, #7d1228, #f15a92);
-      background-attachment: fixed;
-      background-size: 600% 600%;  /* très grand pour l’animation */
-      animation: gradientMove 1s cubic-bezier(0.75, 0, 0.25, 1) infinite; /* animation infinie */
-    }
-    @keyframes gradientMove {
-      0%   { background-position: 50% 0%; }
-      50%  { background-position: 50% 100%; }
-      100% { background-position: 50% 0%; }
-      
-    }
-
-    #gantt-header div.view-selection {
-      text-align: right;
-      padding: 0;
-      box-sizing: border-box;
-      display: flex;
-      justify-content: space-between;
-      flex-wrap: nowrap;
-      flex: 1;
-    }
-
-    #gantt .gantt-container .side-header * {
-      flex: 1;
-    }
-
-    #gantt {
-      /*height: 100%; */  /* prend toute la hauteur dispo */
-      /*display: block; /* évite les espaces fantômes */
-    }
-
-    #gantt-header button {
-      background: linear-gradient(135deg, #4a90e2, #357abd); /* dégradé bleu moderne */
-      color: white;
-      font-size: 14px;
-      font-weight: normal;
-      padding: 8px 24px;
-      border: none;
-      border-radius: 8px;       /* coins arrondis */
-      cursor: pointer;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.15); /* ombre douce */
-      transition: all 0.3s ease;
-      min-height: 40px;
-      text-transform: uppercase;
-    }
-    #gantt-header .view-selection button {
-      background: linear-gradient(135deg, #4a90e2, #357abd); /* dégradé bleu moderne */
-      min-width: 22%;
-      padding: 0;
-    }
-
-    /* Effet au survol */
-    #gantt-header button:hover {
-      filter: brightness(1.15); /* éclaircit en douceur */
-      /*transform: translateY(-1px);*/
-      /*box-shadow: 0 6px 12px rgba(0,0,0,0.2);*/
-    }
-
-    /* Effet quand on clique */
-    #gantt-header button:active {
-      transform: translateY(0);
-      box-shadow: 0 3px 6px rgba(0,0,0,0.15);
-    }
-
-    /* Optionnel : focus accessible */
-    #gantt-header button:focus {
-      outline: 2px solid #a3c9f9;
-      outline-offset: 2px;
-    }
-
-
-#gantt .bar-label {
-  fill: #222; /*couleur du texte*/
-  font-size: 10px;
-}
-
-/* Bleu */
-#gantt .bar-blue .bar {
-  fill: #3498db;
-}
-
-#gantt .bar-blue .bar-progress {
-  fill: #1d6fa5;
-}
-
-/* Vert */
-#gantt .bar-green .bar {
-  fill: #2ecc71;
-}
-#gantt .bar-green .bar-progress {
-  fill: #27ae60;
-}
-
-/* Rouge */
-#gantt .bar-red .bar {
-  fill: #e74c3c;
-}
-#gantt .bar-red .bar-progress {
-  fill: #c0392b;
-}
-
-/* Orange */
-#gantt .bar-orange .bar {
-  fill: #e67e22;
-}
-#gantt .bar-orange .bar-progress {
-  fill: #d35400;
-}
-
-/* Violet */
-#gantt .bar-purple .bar {
-  fill: #9b59b6;
-}
-#gantt .bar-purple .bar-progress {
-  fill: #8e44ad;
-}
-
-#gantt-main-container {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-}
-
-#gantt-root {
-  flex: auto;
-}
-
-  </style>
-
 </head>
 <body>
 
   
   <div id="gantt-main-container">
     <div id="gantt-header">
-      <div> <button id="updateBtn" style="visibiliy: hidden;">Sauvegarder</button></div>
+      <div> <button id="updateBtn" style="visibility: hidden;">Sauvegarder</button></div>
       <div class="view-selection">
         <button id="viewModeDayBtn">jour</button>
         <button id="viewModeWeekBtn">Semaine</button>

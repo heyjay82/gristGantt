@@ -1,31 +1,31 @@
-grist.ready({ 
+grist.ready({
   requiredAccess: 'full',
   //columns: ['Debut', 'NbJours', 'TaskName', 'Couleur']
   columns: [
-  {
-    name: "Debut",
-    optional: false, 
-    type: "Date",
-    description: "Début de la tâche" 
-  },
-  {
-    name: "NbJours",
-    optional: false, 
-    type: "Numeric",
-    description: "Durée de la tâche en jours " 
-  },
-  {
-    name: "TaskName",
-    optional: false, 
-    type: "Any",
-    description: "Nom de la tâche" 
-  },
-  {
-    name: "Couleur",
-    optional: true, 
-    type: "Text",
-    description: "blue|red|green|orange|purple" 
-  },
+    {
+      name: "Debut",
+      optional: false,
+      type: "Date",
+      description: "Début de la tâche"
+    },
+    {
+      name: "NbJours",
+      optional: false,
+      type: "Numeric",
+      description: "Durée de la tâche en jours "
+    },
+    {
+      name: "TaskName",
+      optional: false,
+      type: "Any",
+      description: "Nom de la tâche"
+    },
+    {
+      name: "Couleur",
+      optional: true,
+      type: "Text",
+      description: "blue|red|green|orange|purple"
+    },
   ]
 });
 
@@ -33,7 +33,7 @@ grist.onRecords(table => {
 
   mappedTable = grist.mapColumnNames(table);
   console.log(mappedTable);
-  
+
   document.querySelector("#gantt-header").classList.remove('changed');
   document.querySelector("#updateBtn").style.visibility = 'hidden';
 
@@ -42,7 +42,7 @@ grist.onRecords(table => {
 
   //Construction du tableau Gantt
   mappedTable.forEach((e) => {
-    tasks.push( 
+    tasks.push(
       {
         id: e.id,
         name: e.TaskName,
@@ -71,7 +71,7 @@ grist.onRecords(table => {
     },
     view_mode: "Week",
     line: "vertical",
-    padding:10,
+    padding: 10,
     language: "fr",
     infinite_padding: true,
     view_mode_select: false,
@@ -86,7 +86,7 @@ grist.onRecords(table => {
   svg.id = "gantt"; // ID fixe pour l'init
   root.appendChild(svg);
 
-  
+
   gantt = new Gantt("#gantt", tasks, options);
 
   const updateButton = document.getElementById('updateBtn');
@@ -94,11 +94,11 @@ grist.onRecords(table => {
   // Mise à jour
   //===========================================================================================
   updateButton.addEventListener('click', async () => {
-    
+
     //console.log(gantt.tasks);
     console.log(mappedTable);
 
-    
+
     //Construction de la structure pour modifier le tableau -----------------------------------
     let rec = [];
     modif.forEach((value, i) => {
@@ -122,9 +122,9 @@ grist.onRecords(table => {
 
       rec.push(
         {
-            id: parseInt(tasks[i].id),
-            fields : t
-          }
+          id: parseInt(tasks[i].id),
+          fields: t
+        }
       )
 
     });
@@ -132,14 +132,14 @@ grist.onRecords(table => {
     //Mise à jour dans grist
     //await grist.selectedTable.update(rec);
     await grist.getTable().update(rec);
-    
+
   });
 
 
-  
+
 
 });
 
 grist.onRecord(record => {
-  
+
 });
