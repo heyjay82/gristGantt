@@ -1,4 +1,26 @@
-html, body {
+    :root {
+      --bar-color-blue:   #3498db;
+      --bar-color-blue-dark:   #1d6fa5;
+      --bar-color-green:  #2ecc71;
+      --bar-color-green-dark:  #27ae60;
+      --bar-color-red:    #e74c3c;
+      --bar-color-red-dark:    #c0392b;
+      --bar-color-orange: #e67e22;
+      --bar-color-orange-dark: #d35400;
+      --bar-color-purple: #9b59b6;
+      --bar-color-purple-dark: #8e44ad;
+      --bar-color-yellow: #f1c40f;
+      --bar-color-yellow-dark: #b7950b;
+      --bar-color-pink:   #e91e63;
+      --bar-color-pink-dark:   #c2185b;
+      --bar-color-cyan:   #1abc9c;
+      --bar-color-cyan-dark:   #148f77;
+      --bar-color-teal:   #16a085;
+      --bar-color-teal-dark:   #117a65;
+      --bar-color-gray:   #7f8c8d;
+      --bar-color-gray-dark:   #5d6d70;
+    }
+    html, body {
       margin: 0;
       padding: 0;
       /*height: 100%; */
@@ -18,7 +40,7 @@ html, body {
       align-items: center;
     }
     #gantt-header div {
-      flex: 2;
+      display: inline-block;
     }
     #gantt-header.changed {
       background-attachment: fixed;
@@ -32,7 +54,7 @@ html, body {
       margin: auto;
       width: 100%;
       height:4px;
-      padding: initial;
+      padding: intial;
       background: linear-gradient(0deg, #7d1228, #f15a92);
       background-attachment: fixed;
       background-size: 600% 600%;  /* très grand pour l’animation */
@@ -50,8 +72,8 @@ html, body {
       padding: 0;
       box-sizing: border-box;
       display: flex;
-      justify-content: space-between;
-      flex-wrap: nowrap;
+      justify-content: end;
+      flex-wrap: wrap;
       flex: 1;
     }
 
@@ -59,23 +81,64 @@ html, body {
       flex: 1;
     }
 
+    #gantt-header #legend {
+      display: flex;
+      flex: 2;
+      flex-wrap: wrap;
+    }
+    #legend p {
+      padding: 0px 8px 0 5px;
+      margin: 2px 2px;
+      background-color: #ededed;
+      font-size: 13px;
+      border-radius: 20px;
+      height: 20px;
+      display: flex;
+      align-items: center;
+      color: #3f3f3f;
+    }
+    #legend p::before {
+      content: '';
+      height: 20px;
+      width: 20px;
+      position: relative;
+      left: -5px;
+      background-color: #5b5b5b;
+      border-radius: 10px;
+    }
+    #legend p.bar-blue::before   { background-color: var(--bar-color-blue); }
+    #legend p.bar-green::before  { background-color: var(--bar-color-green); }
+    #legend p.bar-red::before    { background-color: var(--bar-color-red); }
+    #legend p.bar-orange::before { background-color: var(--bar-color-orange); }
+    #legend p.bar-purple::before { background-color: var(--bar-color-purple); }
+    #legend p.bar-yellow::before { background-color: var(--bar-color-yellow); }
+    #legend p.bar-pink::before   { background-color: var(--bar-color-pink); }
+    #legend p.bar-cyan::before   { background-color: var(--bar-color-cyan); }
+    #legend p.bar-teal::before   { background-color: var(--bar-color-teal); }
+    #legend p.bar-gray::before   { background-color: var(--bar-color-gray); }
+
     #gantt-header button {
       background: linear-gradient(135deg, #4a90e2, #357abd); /* dégradé bleu moderne */
       color: white;
-      font-size: 14px;
+      font-size: 11px;
       font-weight: normal;
-      padding: 8px 24px;
+      padding: 5px 12px;
+      margin: 2px 2px;
       border: none;
       border-radius: 8px;       /* coins arrondis */
       cursor: pointer;
       box-shadow: 0 2px 4px rgba(0,0,0,0.15); /* ombre douce */
       transition: all 0.3s ease;
-      min-height: 40px;
+      min-height: 32px;
       text-transform: uppercase;
     }
+    #gantt-header #updateBtn {
+      background: linear-gradient(135deg, #904ae2, #7a35bd);
+    }
+
     #gantt-header .view-selection button {
       background: linear-gradient(135deg, #4a90e2, #357abd); /* dégradé bleu moderne */
-      min-width: 22%;
+      min-width: 60px;
       padding: 0;
     }
 
@@ -104,46 +167,28 @@ html, body {
   font-size: 10px;
 }
 
-/* Bleu */
-#gantt .bar-blue .bar {
-  fill: #3498db;
-}
+#gantt .bar-blue   .bar { fill: var(--bar-color-blue); }
+#gantt .bar-green  .bar { fill: var(--bar-color-green); }
+#gantt .bar-red    .bar { fill: var(--bar-color-red); }
+#gantt .bar-orange .bar { fill: var(--bar-color-orange); }
+#gantt .bar-purple .bar { fill: var(--bar-color-purple); }
+#gantt .bar-yellow .bar { fill: var(--bar-color-yellow); }
+#gantt .bar-pink   .bar { fill: var(--bar-color-pink); }
+#gantt .bar-cyan   .bar { fill: var(--bar-color-cyan); }
+#gantt .bar-teal   .bar { fill: var(--bar-color-teal); }
+#gantt .bar-gray   .bar { fill: var(--bar-color-gray); }
 
-#gantt .bar-blue .bar-progress {
-  fill: #1d6fa5;
-}
+#gantt .bar-blue   .bar-progress { fill: var(--bar-color-blue-dark); }
+#gantt .bar-green  .bar-progress { fill: var(--bar-color-green-dark); }
+#gantt .bar-red    .bar-progress { fill: var(--bar-color-red-dark); }
+#gantt .bar-orange .bar-progress { fill: var(--bar-color-orange-dark); }
+#gantt .bar-purple .bar-progress { fill: var(--bar-color-purple-dark); }
+#gantt .bar-yellow .bar-progress { fill: var(--bar-color-yellow-dark); }
+#gantt .bar-pink   .bar-progress { fill: var(--bar-color-pink-dark); }
+#gantt .bar-cyan   .bar-progress { fill: var(--bar-color-cyan-dark); }
+#gantt .bar-teal   .bar-progress { fill: var(--bar-color-teal-dark); }
+#gantt .bar-gray   .bar-progress { fill: var(--bar-color-gray-dark); }
 
-/* Vert */
-#gantt .bar-green .bar {
-  fill: #2ecc71;
-}
-#gantt .bar-green .bar-progress {
-  fill: #27ae60;
-}
-
-/* Rouge */
-#gantt .bar-red .bar {
-  fill: #e74c3c;
-}
-#gantt .bar-red .bar-progress {
-  fill: #c0392b;
-}
-
-/* Orange */
-#gantt .bar-orange .bar {
-  fill: #e67e22;
-}
-#gantt .bar-orange .bar-progress {
-  fill: #d35400;
-}
-
-/* Violet */
-#gantt .bar-purple .bar {
-  fill: #9b59b6;
-}
-#gantt .bar-purple .bar-progress {
-  fill: #8e44ad;
-}
 
 #gantt-main-container {
   display: flex;

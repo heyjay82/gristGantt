@@ -1,30 +1,39 @@
-grist.ready({
+
+/* GRIST **************************************************************************************************/
+
+grist.ready({ 
   requiredAccess: 'full',
   //columns: ['Debut', 'NbJours', 'TaskName', 'Couleur']
   columns: [
     {
       name: "Debut",
-      optional: false,
+      optional: false, 
       type: "Date",
-      description: "Début de la tâche"
+      description: "Début de la tâche" 
     },
     {
       name: "NbJours",
-      optional: false,
+      optional: false, 
       type: "Numeric",
-      description: "Durée de la tâche en jours "
+      description: "Durée de la tâche en jours " 
     },
     {
       name: "TaskName",
-      optional: false,
+      optional: false, 
       type: "Any",
-      description: "Nom de la tâche"
+      description: "Nom de la tâche" 
     },
     {
       name: "Couleur",
-      optional: true,
+      optional: true, 
       type: "Text",
-      description: "blue|red|green|orange|purple"
+      description: "blue|red|green|orange|purple" 
+    },
+    {
+      name: "Legende",
+      optional: true, 
+      type: "Any",
+      description: "Légende à afficher dans la bannière" 
     },
   ]
 });
@@ -33,17 +42,18 @@ grist.onRecords(table => {
 
   mappedTable = grist.mapColumnNames(table);
   console.log(mappedTable);
-  console.log('ok');
-
+  
   document.querySelector("#gantt-header").classList.remove('changed');
   document.querySelector("#updateBtn").style.visibility = 'hidden';
 
   let tasks = [];
   let modif = [];
+  let legends = []; //Mémorise les légendes déjà inscrites pour ne pas les dupliquer 
 
   //Construction du tableau Gantt
+  document.querySelector("#legend").innerHTML = "";
   mappedTable.forEach((e) => {
-    tasks.push(
+    tasks.push( 
       {
         id: e.id,
         name: e.TaskName,
@@ -52,6 +62,15 @@ grist.onRecords(table => {
         progress: 0,
         custom_class: 'bar-' + e.Couleur
       });
+      if(e.Legende) {
+        if(!legends.includes(e.Legende)) {
+          legends.push(e.Legende);
+          let p = document.createElement("p");
+          p.classList.add('bar-' + e.Couleur);
+          p.innerHTML = e.Legende;
+          document.querySelector("#legend").appendChild(p);
+        }
+      }
   });
 
   let options = {
@@ -72,7 +91,7 @@ grist.onRecords(table => {
     },
     view_mode: "Week",
     line: "vertical",
-    padding: 10,
+    padding:10,
     language: "fr",
     infinite_padding: true,
     view_mode_select: false,
@@ -87,7 +106,7 @@ grist.onRecords(table => {
   svg.id = "gantt"; // ID fixe pour l'init
   root.appendChild(svg);
 
-
+  
   gantt = new Gantt("#gantt", tasks, options);
 
   const updateButton = document.getElementById('updateBtn');
@@ -95,11 +114,11 @@ grist.onRecords(table => {
   // Mise à jour
   //===========================================================================================
   updateButton.addEventListener('click', async () => {
-
+    
     //console.log(gantt.tasks);
     console.log(mappedTable);
 
-
+    
     //Construction de la structure pour modifier le tableau -----------------------------------
     let rec = [];
     modif.forEach((value, i) => {
@@ -123,9 +142,9 @@ grist.onRecords(table => {
 
       rec.push(
         {
-          id: parseInt(tasks[i].id),
-          fields: t
-        }
+            id: parseInt(tasks[i].id),
+            fields : t
+          }
       )
 
     });
@@ -133,14 +152,61 @@ grist.onRecords(table => {
     //Mise à jour dans grist
     //await grist.selectedTable.update(rec);
     await grist.getTable().update(rec);
-
+    
   });
 
 
-
+  
 
 });
 
 grist.onRecord(record => {
-
+  
 });
+
+
+/* FIN GRIST **********************************************************************************************/
+
+
+
+
+
+
+
+
+
+document.getElementById("viewModeDayBtn").addEventListener("click", () => {
+  gantt.change_view_mode("Day");
+});
+document.getElementById("viewModeWeekBtn").addEventListener("click", () => {
+  gantt.change_view_mode("Week");
+});
+document.getElementById("viewModeMonthBtn").addEventListener("click", () => {
+  gantt.change_view_mode("Month");
+});
+document.getElementById("viewModeYearBtn").addEventListener("click", () => {
+  gantt.change_view_mode("Year");
+});
+
+
+//Fonction de calcul de jours entre 2 dates
+function calculateDays(startDate, endDate) {
+  let start = new Date(startDate);
+  let end = new Date(endDate);
+  let timeDifference = end - start;
+  let daysDifference = timeDifference / (1000 * 3600 * 24);
+  return daysDifference + 1;
+}
+
+function addDays(date, days) {
+  const result = new Date(date); // on clone la date d’origine
+  result.setDate(result.getDate() + days);
+  return result;
+}
+
+
+
+
+
+
+
