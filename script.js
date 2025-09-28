@@ -27,13 +27,19 @@ grist.ready({
       name: "Couleur",
       optional: true, 
       type: "Text",
-      description: "blue|red|green|orange|purple" 
+      description: "blue|red|green|orange|purple|yellow|pink|cyan|teal|gray"
     },
     {
       name: "Legende",
       optional: true, 
       type: "Any",
       description: "Légende à afficher dans la bannière" 
+    },
+    {
+      name: "Commentaire",
+      optional: true, 
+      type: "Any",
+      description: "" 
     },
   ]
 });
