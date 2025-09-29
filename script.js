@@ -21,7 +21,7 @@ grist.ready({
       name: "TaskName",
       optional: false, 
       type: "Any",
-      description: "Nom de la tâche" 
+      description: "Contenu à afficher dans la barre" 
     },
     {
       name: "Couleur",
@@ -66,7 +66,9 @@ grist.onRecords(table => {
         start: e.Debut,
         end: addDays(e.Debut, e.NbJours), //e.Fin,
         progress: 0,
-        custom_class: 'bar-' + e.Couleur
+        custom_class: 'bar-' + e.Couleur,
+        comment: e.Commentaire,
+        legend: e.Legende
       });
       if(e.Legende) {
         if(!legends.includes(e.Legende)) {
@@ -101,7 +103,31 @@ grist.onRecords(table => {
     language: "fr",
     infinite_padding: true,
     view_mode_select: false,
-    today_button: false
+    today_button: false,
+    popup: function(opts) {
+      const { task, get_title, get_details, set_details, add_action } = opts;
+      // Contenu du popup
+      set_details(`
+        <div class="customPopUp">
+          <p>` + task.start.toLocaleDateString("fr-CA") + ` ➤ ` + task.end.toLocaleDateString("fr-CA") + `</p>` + 
+          ((task.comment) ? `<div class="customPopUpComment">` + marked.parse(task.comment, { breaks: true }) + `</div>` : ``) + 
+          `<!--<p>Progression : ${task.progress}%</p>-->
+        </div>
+      `);
+
+      /*
+      // Ajouter une action (bouton) dans le popup
+      add_action('<button>Mon action</button>', () => {
+        console.log("Action pour la tâche", task.id);
+        // Tu peux déclencher une fonction ici : ouvrir modal, etc.
+      });
+      */
+
+      //Titre:
+      opts.set_title(`<strong>` + task.legend + `</strong>`);
+      
+      // Si tu ne retournes rien (ou `undefined`), le système continue avec cette configuration
+    }
   };
 
   const root = document.querySelector("#gantt-root");

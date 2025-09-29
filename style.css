@@ -199,3 +199,31 @@
 #gantt-root {
   flex: auto;
 }
+
+#gantt-root .popup-wrapper {
+  padding: 20px 20px;
+  background-color: #050505BB;
+}
+#gantt-root .popup-wrapper .title {
+  color: white;
+}
+#gantt-root .customPopUp {
+  color: white;
+}
+#gantt-root .customPopUp p {
+  padding: 8px 0;
+  margin: 0;
+  font-size: 15px;
+}
+#gantt-root .customPopUp .customPopUpComment {
+  background-color: #ffffffa8;
+  color: #232220;
+  padding: 8px;
+  margin: 8px 0 0 0;
+  border-radius: 3px;
+  font-size: 13px;
+}
+#gantt-root .customPopUp .customPopUpComment p {
+  line-height: normal;
+  padding: 0;
+}
