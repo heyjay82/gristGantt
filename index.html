@@ -28,5 +28,25 @@
     <div id="gantt-root"></div>
   </div>
 
+  <script>
+    //Boutons de changement de vue
+    document.getElementById("viewModeDayBtn").addEventListener("click", () => {
+      console.log("Day view");
+      gantt.change_view_mode("Day");
+    });
+    document.getElementById("viewModeWeekBtn").addEventListener("click", () => {
+      console.log("Week view");
+      gantt.change_view_mode("Week");
+    });
+    document.getElementById("viewModeMonthBtn").addEventListener("click", () => {
+      console.log("Month view");
+      gantt.change_view_mode("Month");
+    });
+    document.getElementById("viewModeYearBtn").addEventListener("click", () => {
+      console.log("Year view");
+      gantt.change_view_mode("Year");
+    });
+  </script>
+
 </body>
 </html>
