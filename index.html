@@ -9,7 +9,7 @@
   <script src="https://docs.getgrist.com/grist-plugin-api.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/frappe-gantt/dist/frappe-gantt.umd.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>  <!-- Librairie pour parser le Markdown -->
-  <script src="script.js"></script>
+  
 </head>
 <body>
 
@@ -28,25 +28,7 @@
     <div id="gantt-root"></div>
   </div>
 
-  <script>
-    //Boutons de changement de vue
-    document.getElementById("viewModeDayBtn").addEventListener("click", () => {
-      console.log("Day view");
-      gantt.change_view_mode("Day");
-    });
-    document.getElementById("viewModeWeekBtn").addEventListener("click", () => {
-      console.log("Week view");
-      gantt.change_view_mode("Week");
-    });
-    document.getElementById("viewModeMonthBtn").addEventListener("click", () => {
-      console.log("Month view");
-      gantt.change_view_mode("Month");
-    });
-    document.getElementById("viewModeYearBtn").addEventListener("click", () => {
-      console.log("Year view");
-      gantt.change_view_mode("Year");
-    });
-  </script>
+  <script src="script.js"></script>
 
 </body>
 </html>

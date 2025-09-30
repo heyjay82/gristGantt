@@ -41,6 +41,12 @@ grist.ready({
       type: "Any",
       description: "" 
     },
+    {
+      name: "Commentaire2",
+      optional: true, 
+      type: "Any",
+      description: "" 
+    },
   ]
 });
 
@@ -68,6 +74,7 @@ grist.onRecords(table => {
         progress: 0,
         custom_class: 'bar-' + e.Couleur,
         comment: e.Commentaire,
+        comment2: e.Commentaire2,
         legend: e.Legende
       });
       if(e.Legende) {
@@ -91,7 +98,7 @@ grist.onRecords(table => {
 
       indice = tasks.indexOf(task);
       modif[indice] = indice;
-      console.log(modif);
+      //console.log(modif);
 
       document.querySelector("#gantt-header").classList.add('changed');
       document.querySelector("#updateBtn").classList.remove('btnDisabled');
@@ -111,6 +118,7 @@ grist.onRecords(table => {
         <div class="customPopUp">
           <p>` + task.start.toLocaleDateString("fr-CA") + ` ➤ ` + task.end.toLocaleDateString("fr-CA") + `</p>` + 
           ((task.comment) ? `<div class="customPopUpComment">` + marked.parse(task.comment, { breaks: true }) + `</div>` : ``) + 
+          ((task.comment2) ? `<div class="customPopUpComment">` + marked.parse(task.comment2, { breaks: true }) + `</div>` : ``) + 
           `<!--<p>Progression : ${task.progress}%</p>-->
         </div>
       `);
@@ -146,9 +154,13 @@ grist.onRecords(table => {
   // Mise à jour
   //===========================================================================================
   updateButton.addEventListener('click', async () => {
+
+    if (document.querySelector("#updateBtn").classList.contains('btnDisabled')) {
+      return;
+    }
     
     //console.log(gantt.tasks);
-    console.log(mappedTable);
+    //console.log(mappedTable);
 
     
     //Construction de la structure pour modifier le tableau -----------------------------------
@@ -164,13 +176,13 @@ grist.onRecords(table => {
         Debut: startDate
       }
       t = grist.mapColumnNamesBack(t); //la fonction recréer les clés manquantes en undefined. Suppression après...
-      console.log("t:");
+      //console.log("t:");
       for (const key in t) {
         if (t[key] === undefined) {
           delete t[key];
         }
       }
-      console.log(t);
+      //console.log(t);
 
       rec.push(
         {
@@ -199,6 +211,23 @@ grist.onRecord(record => {
 
 /* FIN GRIST **********************************************************************************************/
 
+//Boutons de changement de vue
+document.getElementById("viewModeDayBtn").addEventListener("click", () => {
+  console.log("Day view");
+  gantt.change_view_mode("Day");
+});
+document.getElementById("viewModeWeekBtn").addEventListener("click", () => {
+  console.log("Week view");
+  gantt.change_view_mode("Week");
+});
+document.getElementById("viewModeMonthBtn").addEventListener("click", () => {
+  console.log("Month view");
+  gantt.change_view_mode("Month");
+});
+document.getElementById("viewModeYearBtn").addEventListener("click", () => {
+  console.log("Year view");
+  gantt.change_view_mode("Year");
+});
 
 
 //Fonction de calcul de jours entre 2 dates
