@@ -50,7 +50,7 @@ grist.onRecords(table => {
   console.log(mappedTable);
   
   document.querySelector("#gantt-header").classList.remove('changed');
-  document.querySelector("#updateBtn").style.visibility = 'hidden';
+  document.querySelector("#updateBtn").classList.add('btnDisabled');
 
   let tasks = [];
   let modif = [];
@@ -94,7 +94,7 @@ grist.onRecords(table => {
       console.log(modif);
 
       document.querySelector("#gantt-header").classList.add('changed');
-      document.querySelector("#updateBtn").style.visibility = 'visible';
+      document.querySelector("#updateBtn").classList.remove('btnDisabled');
 
     },
     view_mode: "Week",
@@ -198,25 +198,21 @@ grist.onRecord(record => {
 
 
 /* FIN GRIST **********************************************************************************************/
-
-
-
-
-
-
-
-
-
+//Boutons de changement de vue
 document.getElementById("viewModeDayBtn").addEventListener("click", () => {
+  console.log("Day view");
   gantt.change_view_mode("Day");
 });
 document.getElementById("viewModeWeekBtn").addEventListener("click", () => {
+  console.log("Week view");
   gantt.change_view_mode("Week");
 });
 document.getElementById("viewModeMonthBtn").addEventListener("click", () => {
+  console.log("Month view");
   gantt.change_view_mode("Month");
 });
 document.getElementById("viewModeYearBtn").addEventListener("click", () => {
+  console.log("Year view");
   gantt.change_view_mode("Year");
 });
 
