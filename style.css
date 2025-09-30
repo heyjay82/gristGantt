@@ -196,6 +196,11 @@
   height: 100%;
 }
 
+#gantt-main-container .btnDisabled {
+  opacity: 0.1;
+  cursor: not-allowed;
+}
+
 #gantt-root {
   flex: auto;
 }
