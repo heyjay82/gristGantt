@@ -135,7 +135,9 @@ html, body {
 #gantt-header #updateBtn {
   background: linear-gradient(135deg, #904ae2, #7a35bd);
 }
-
+#gantt-header #today {
+  background: linear-gradient(135deg, #28c070, #139b58); 
+}
 #gantt-header .view-selection button {
   background: linear-gradient(135deg, #4a90e2, #357abd); /* dégradé bleu moderne */
   min-width: 60px;
@@ -168,7 +170,7 @@ html, body {
 
 #gantt .bar-label {
   fill: #222; /*couleur du texte*/
-  font-size: 10px;
+  font-size: 11px;
 }
 
 #gantt .bar-blue   .bar { fill: var(--bar-color-blue); }
@@ -225,7 +227,7 @@ html, body {
   font-size: 15px;
 }
 #gantt-root .customPopUp .customPopUpComment {
-  background-color: #ffffffa8;
+  background-color: #ffffffe5;
   color: #232220;
   padding: 8px;
   margin: 8px 0 0 0;
@@ -235,4 +237,9 @@ html, body {
 #gantt-root .customPopUp .customPopUpComment p {
   line-height: normal;
   padding: 0;
+}
+
+#gantt-root rect.comm {
+    stroke-width: 0.6;
+    stroke: black;
 }
