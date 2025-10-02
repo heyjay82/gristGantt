@@ -33,7 +33,7 @@ html, body {
 }
 
 #gantt .gantt-container .lower-header div {
-    font-size: 12px;
+    font-size: 11px;
     line-height: 9px;
     font-family: "arial condensed";
     /*transform: rotate(315deg);*/
