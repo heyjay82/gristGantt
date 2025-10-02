@@ -32,6 +32,13 @@ html, body {
   font-family: tahoma, arial;
 }
 
+#gantt .gantt-container .lower-header div {
+    font-size: 12px;
+    line-height: 9px;
+    font-family: "arial condensed";
+    /*transform: rotate(315deg);*/
+}
+
 #gantt-header {
   padding: 6px;      
   background: #fefefe;

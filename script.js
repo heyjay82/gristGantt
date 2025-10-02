@@ -297,8 +297,7 @@ function drawCommentFlag() {
   //setTimeout(() => {
     tasks.forEach((e) => {
       
-      console.log('g.bar-wrapper[data-id="'+ e.id + '"] rect.bar');
-      console.log((e.comment) ? "oui":"non");
+      //console.log('g.bar-wrapper[data-id="'+ e.id + '"] rect.bar');
       if (e.comment) {
         const el = document.querySelector('g.bar-wrapper[data-id="'+ e.id + '"] rect.bar');
         let div = document.createElementNS("http://www.w3.org/2000/svg", "rect");
@@ -310,7 +309,6 @@ function drawCommentFlag() {
         div.setAttribute('width', 5);
         div.setAttribute('height', 5);
         div.setAttribute('fill', "white");
-        //console.log(el.x.baseVal.value);
         el.after(div);
       }
     });
